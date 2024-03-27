@@ -11,6 +11,8 @@ public class OptionsController : MonoBehaviour
     public TMP_Dropdown size;
     [SerializeField]
     public TMP_Dropdown objNum;
+    [SerializeField]
+    public TMP_Dropdown selection;
 
     public void SetSpeed()
     {
@@ -30,6 +32,11 @@ public class OptionsController : MonoBehaviour
         PlayerPrefs.SetInt("objNum", objNum.value);
     }
 
+    public void SetSelection()
+    {
+        PlayerPrefs.SetInt("selection", selection.value);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +48,6 @@ public class OptionsController : MonoBehaviour
         speed.value = PlayerPrefs.GetInt("speed");
         size.value = PlayerPrefs.GetInt("size");
         objNum.value = PlayerPrefs.GetInt("objNum");
+        selection.value = PlayerPrefs.GetInt("selection");
     }
 }

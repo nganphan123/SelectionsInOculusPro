@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,9 @@ public class EyeTrackingRay : MonoBehaviour
     [SerializeField]
     private bool mockHandUsedForPinchSelection;
 
+    [SerializeField]
+    public OVRFaceExpressions faceExp;
+
     private bool intercepting;
 
     private bool allowPinchSelection;
@@ -39,6 +43,8 @@ public class EyeTrackingRay : MonoBehaviour
     private EyeInteractable lastEyeInteractable;
 
     public Vector3 End;
+
+    Func<bool> selectObj;
 
     public enum State
     {
@@ -53,6 +59,16 @@ public class EyeTrackingRay : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         allowPinchSelection = handUsedForPinchSelection != null;
+        int selection = PlayerPrefs.GetInt("selection");
+        switch (selection)
+        {
+            case 0:
+                selectObj = IsPinching;
+                break;
+            default:
+                selectObj = IsRightEyeClose;
+                break;
+        }
         SetupRay();
     }
 
@@ -71,7 +87,7 @@ public class EyeTrackingRay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lineRenderer.enabled = !IsPinching() && rayDisplay;
+        lineRenderer.enabled = !selectObj() && rayDisplay;
 
         SelectionStarted();
 
@@ -86,7 +102,7 @@ public class EyeTrackingRay : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsPinching()) return;
+        if (selectObj()) return;
 
         Vector3 rayDirection = transform.TransformDirection(Vector3.forward) * rayDistance;
 
@@ -119,7 +135,7 @@ public class EyeTrackingRay : MonoBehaviour
     private void SelectionStarted()
     {
         // var motionControl = lastEyeInteractable.GetComponent<InteractableControl>();
-        if (IsPinching())
+        if (selectObj())
         {
             // lastEyeInteractable?.Select(true, (handUsedForPinchSelection?.IsTracked ?? false) ? handUsedForPinchSelection.transform : transform);
             lastEyeInteractable?.Select(true);
@@ -145,4 +161,6 @@ public class EyeTrackingRay : MonoBehaviour
     private void OnDestroy() => interactables.Clear();
 
     private bool IsPinching() => (allowPinchSelection && handUsedForPinchSelection.GetFingerIsPinching(OVRHand.HandFinger.Index)) || mockHandUsedForPinchSelection;
+
+    private bool IsRightEyeClose() => System.Math.Round(faceExp[OVRFaceExpressions.FaceExpression.EyesClosedR]) >= 1.0;
 }

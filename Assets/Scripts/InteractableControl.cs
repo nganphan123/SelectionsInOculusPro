@@ -4,6 +4,8 @@ public class InteractableControl : MonoBehaviour
 {
     [SerializeField]
     private float speed;
+    private float slowSpeed;
+    public bool isSlow;
 
     private Vector3 rightBound;
     private Vector3 leftBound;
@@ -17,31 +19,47 @@ public class InteractableControl : MonoBehaviour
         switch (preferredSpeed)
         {
             case 0:
-                speed = 0.005f;
-                break;
-            case 1:
                 speed = 0.01f;
                 break;
+            case 1:
+                speed = 0.02f;
+                break;
             case 2:
-                speed = 0.015f;
+                speed = 0.03f;
                 break;
         }
+        // when object is in gaze range, slow down speed
+        slowSpeed = speed / 2;
         reverse = false;
         rightBound = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         leftBound = new Vector3(transform.position.x * -1, transform.position.y, transform.position.z);
+    }
+
+    public void SetSlow(bool state)
+    {
+        isSlow = state;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!motionActive) return;
-        if (!reverse)
+        float currentSpeed;
+        if (isSlow)
         {
-            transform.position = Vector3.MoveTowards(transform.position, rightBound, speed);
+            currentSpeed = slowSpeed;
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, leftBound, speed);
+            currentSpeed = speed;
+        }
+        if (!reverse)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, rightBound, currentSpeed);
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, leftBound, currentSpeed);
         }
         if (transform.position == leftBound || transform.position == rightBound)
         {

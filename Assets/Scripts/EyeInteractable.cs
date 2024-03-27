@@ -1,8 +1,5 @@
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -13,6 +10,9 @@ public class EyeInteractable : MonoBehaviour
 
     [field: SerializeField]
     public bool IsSelected { get; private set; }
+
+    [field: SerializeField]
+    public bool IsInGaze { get; private set; }
 
     [SerializeField]
     private UnityEvent<GameObject> OnObjectHover;
@@ -62,11 +62,17 @@ public class EyeInteractable : MonoBehaviour
         }
         // change cube size
         transform.localScale = newSize;
+        SetGaze(false);
     }
 
     public void Hover(bool state)
     {
         IsHovered = state;
+    }
+
+    public void SetGaze(bool state)
+    {
+        IsInGaze = state;
     }
 
     public void Select(bool state, Transform anchor = null)
@@ -79,7 +85,6 @@ public class EyeInteractable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("equals" + (gameObject == RandomCubeController.targetCube));
         // set target color
         if (gameObject == RandomCubeController.targetCube)
         {
@@ -101,7 +106,7 @@ public class EyeInteractable : MonoBehaviour
             // Timer.endTime = DateTime.Now;
             // SceneManager.LoadScene("StartMenu");
             meshRenderer.material = OnSelectActiveMaterial;
-            if (ReferenceEquals(gameObject, RandomCubeController.targetCube))
+            if (gameObject == RandomCubeController.targetCube)
             {
                 OnObjectSelect?.Invoke(gameObject);
             }
@@ -111,6 +116,14 @@ public class EyeInteractable : MonoBehaviour
         {
             meshRenderer.material = OnIdleMaterial;
             // statusText.text = $"<color=\"yellow\">IDLE</color>";
+        }
+        if (IsInGaze)
+        {
+            gameObject.GetComponent<InteractableControl>().SetSlow(true);
+        }
+        else
+        {
+            gameObject.GetComponent<InteractableControl>().SetSlow(false);
         }
     }
 }

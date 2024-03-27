@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RandomCubeController : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class RandomCubeController : MonoBehaviour
     // [SerializeField]
     // private EyeInteractable cube8;
     // Start is called before the first frame update
+    public Text countText;
+
     public int count;
     public static GameObject targetCube;
     void Start()
@@ -81,6 +84,7 @@ public class RandomCubeController : MonoBehaviour
             System.Random rnd = new System.Random();
             targetCube = cubes[rnd.Next(0, cubes.Length)];
         }
+        countText.text = "Number of selections left " + count;
     }
 
     // Update is called once per frame
