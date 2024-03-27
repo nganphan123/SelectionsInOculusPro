@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EyeGazeRange2 : MonoBehaviour
+public class EyeGazeRange : MonoBehaviour
 {
     [SerializeField]
     private LayerMask layersToInclude;

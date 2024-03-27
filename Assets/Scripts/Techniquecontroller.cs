@@ -10,7 +10,8 @@ public class Techniquecontroller : MonoBehaviour
     private GameObject LeftEyeInteractor;
     [SerializeField]
     private GameObject RightEyeInteractor;
-
+    [SerializeField]
+    private GameObject HeadRange;
     [SerializeField]
     private GameObject HandRayInteractor;
     // Start is called before the first frame update
@@ -19,7 +20,8 @@ public class Techniquecontroller : MonoBehaviour
         HeadInteractor.SetActive(false);
         LeftEyeInteractor.SetActive(false);
         RightEyeInteractor.SetActive(false);
-        HandRayInteractor.SetActive(false);
+        HeadRange.SetActive(false);
+        // HandRayInteractor.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class Techniquecontroller : MonoBehaviour
                 RightEyeInteractor.SetActive(true);
                 break;
             case 2:
-                HeadInteractor.SetActive(true);
+                HeadRange.SetActive(true);
                 LeftEyeInteractor.SetActive(true);
                 RightEyeInteractor.SetActive(true);
                 break;

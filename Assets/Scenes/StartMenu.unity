@@ -3714,7 +3714,7 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Eye
       m_Image: {fileID: 0}
-    - m_Text: Head + eye
+    - m_Text: Head range + eye
       m_Image: {fileID: 0}
     - m_Text: Hand control
       m_Image: {fileID: 0}
