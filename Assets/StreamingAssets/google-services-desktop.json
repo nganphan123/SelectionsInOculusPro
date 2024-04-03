@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "830247268800",
+    "firebase_url": "https://movingobjectselection-default-rtdb.firebaseio.com",
+    "project_id": "movingobjectselection",
+    "storage_bucket": "movingobjectselection.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830247268800:android:ed716ddf4e988539de1825",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.MovingObjController"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTwZ1UVMj0IWHdfwrw7z37n1txBxBF78U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

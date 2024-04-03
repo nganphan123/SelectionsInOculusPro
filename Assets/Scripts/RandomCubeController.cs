@@ -7,23 +7,8 @@ public class RandomCubeController : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] cubes;
-    // [SerializeField]
-    // private EyeInteractable cube1;
-    // [SerializeField]
-    // private EyeInteractable cube2;
-    // [SerializeField]
-    // private EyeInteractable cube3;
-    // [SerializeField]
-    // private EyeInteractable cube4;
-    // [SerializeField]
-    // private EyeInteractable cube5;
-    // [SerializeField]
-    // private EyeInteractable cube6;
-    // [SerializeField]
-    // private EyeInteractable cube7;
-    // [SerializeField]
-    // private EyeInteractable cube8;
-    // Start is called before the first frame update
+    [SerializeField]
+    private FirebaseDbManager firebaseDbManager;
     public Text countText;
 
     public int count;
@@ -76,6 +61,7 @@ public class RandomCubeController : MonoBehaviour
         if (count == 0)
         {
             Timer.endTime = DateTime.Now;
+            firebaseDbManager.AddRecord();
             SceneManager.LoadScene("StartMenu");
         }
         else

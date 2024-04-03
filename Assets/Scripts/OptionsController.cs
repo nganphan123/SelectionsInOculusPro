@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -13,6 +14,25 @@ public class OptionsController : MonoBehaviour
     public TMP_Dropdown objNum;
     [SerializeField]
     public TMP_Dropdown selection;
+    public static Dictionary<int, string> techniqueMap = new Dictionary<int, string>{
+        {0, "head"},
+        {1, "eye"},
+        {2, "head range and eye gaze"}
+    };
+    public static Dictionary<int, string> selectionMap = new Dictionary<int, string>{
+        {0, "hand pinching"},
+        {1, "right eye blinking"},
+    };
+    public static Dictionary<int, float> speedMap = new Dictionary<int, float>{
+        {0, 0.01f},
+        {1, 0.02f},
+        {2, 0.03f},
+    };
+    public static Dictionary<int, float> sizeMap = new Dictionary<int, float>{
+        {0, 01f},
+        {1, 02f},
+        {2, 03f}
+    };
 
     public void SetSpeed()
     {
@@ -40,10 +60,6 @@ public class OptionsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // if(PlayerPrefs.GetInt("technique"))
-        // PlayerPrefs.SetInt("technique", 0);
-        // PlayerPrefs.SetInt("size", 0);
-        // PlayerPrefs.SetInt("speed", 0);
         technique.value = PlayerPrefs.GetInt("technique");
         speed.value = PlayerPrefs.GetInt("speed");
         size.value = PlayerPrefs.GetInt("size");
