@@ -1762,7 +1762,7 @@ GameObject:
   - component: {fileID: 325837348}
   - component: {fileID: 325837347}
   m_Layer: 0
-  m_Name: Dropdown_obj_size
+  m_Name: Dropdown_trial_count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1851,7 +1851,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1418259361}
         m_TargetAssemblyTypeName: OptionsController, Assembly-CSharp
-        m_MethodName: SetObjectNums
+        m_MethodName: SetTrialsCount
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7186,7 +7186,7 @@ MonoBehaviour:
   technique: {fileID: 656115011}
   speed: {fileID: 750003732}
   size: {fileID: 1665056612}
-  objNum: {fileID: 325837347}
+  trialsCount: {fileID: 325837347}
   selection: {fileID: 1096235271}
 --- !u!4 &1418259362
 Transform:
@@ -7662,7 +7662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1566728570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12611,6 +12611,7 @@ GameObject:
   - component: {fileID: 4150365557670154156}
   - component: {fileID: 8230025151855728360}
   - component: {fileID: 8230025151855728361}
+  - component: {fileID: 8230025151855728362}
   m_Layer: 0
   m_Name: StartButton
   m_TagString: Untagged
@@ -13381,16 +13382,16 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8230025151855728361}
-        m_TargetAssemblyTypeName: StartController, Assembly-CSharp
-        m_MethodName: PlayGame
-        m_Mode: 1
+      - m_Target: {fileID: 8230025151855728362}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: RoundStart
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
@@ -13595,12 +13596,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4753754224243651896}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68e05a941d04d7c46bc31f330bcec9df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1566728570}
+--- !u!114 &8230025151855728362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4753754224243651896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9976c39a6f60c6b4bb719c52fda197b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8376667223928896344
 MonoBehaviour:
   m_ObjectHideFlags: 0

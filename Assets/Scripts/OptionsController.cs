@@ -11,7 +11,7 @@ public class OptionsController : MonoBehaviour
     [SerializeField]
     public TMP_Dropdown size;
     [SerializeField]
-    public TMP_Dropdown objNum;
+    public TMP_Dropdown trialsCount;
     [SerializeField]
     public TMP_Dropdown selection;
     public static Dictionary<int, string> techniqueMap = new Dictionary<int, string>{
@@ -29,9 +29,9 @@ public class OptionsController : MonoBehaviour
         {2, 0.03f},
     };
     public static Dictionary<int, float> sizeMap = new Dictionary<int, float>{
-        {0, 01f},
-        {1, 02f},
-        {2, 03f}
+        {0, 0.1f},
+        {1, 0.2f},
+        {2, 0.3f}
     };
 
     public void SetSpeed()
@@ -49,7 +49,7 @@ public class OptionsController : MonoBehaviour
 
     public void SetObjectNums()
     {
-        PlayerPrefs.SetInt("objNum", objNum.value);
+        PlayerPrefs.SetInt("objNum", trialsCount.value);
     }
 
     public void SetSelection()
@@ -63,7 +63,9 @@ public class OptionsController : MonoBehaviour
         technique.value = PlayerPrefs.GetInt("technique");
         speed.value = PlayerPrefs.GetInt("speed");
         size.value = PlayerPrefs.GetInt("size");
-        objNum.value = PlayerPrefs.GetInt("objNum");
+        trialsCount.value = PlayerPrefs.GetInt("objNum");
         selection.value = PlayerPrefs.GetInt("selection");
+        // reset count to 1 to start new round group
+        RoundController.count = 1;
     }
 }

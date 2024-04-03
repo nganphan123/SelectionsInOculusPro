@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -86,7 +87,7 @@ public class EyeInteractable : MonoBehaviour
     void Update()
     {
         // set target color
-        if (gameObject == RandomCubeController.targetCube)
+        if (gameObject == RoundController.targetCube)
         {
             meshRenderer.material = TargetMaterial;
             IsTarget = true;
@@ -103,13 +104,12 @@ public class EyeInteractable : MonoBehaviour
         }
         if (IsSelected)
         {
-            // Timer.endTime = DateTime.Now;
-            // SceneManager.LoadScene("StartMenu");
-            meshRenderer.material = OnSelectActiveMaterial;
-            if (gameObject == RandomCubeController.targetCube)
+            if (gameObject == RoundController.targetCube)
             {
+                RoundController.endTime = DateTime.Now;
                 OnObjectSelect?.Invoke(gameObject);
             }
+            meshRenderer.material = OnSelectActiveMaterial;
             // statusText.text = $"<color=\"yellow\">SELECTED</color>";
         }
         if (!IsHovered && !IsSelected && !IsTarget)

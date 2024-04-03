@@ -37,7 +37,7 @@ public class FirebaseDbManager : MonoBehaviour
         Debug.Log($"Record:: Speed: {speed}, size: {size}, selection: {selection}, tech: {technique}");
 
         string key = mDatabase.Push().Key;
-        RecordEntry entry = new(technique, selection, size, speed.ToString("0.0000"), Timer.endTime.Subtract(Timer.startTime).TotalMilliseconds.ToString());
+        RecordEntry entry = new(technique, selection, size, speed.ToString("0.0000"), RoundController.endTime.Subtract(RoundController.startTime).TotalMilliseconds.ToString());
         Dictionary<string, object> entryValues = entry.ToDictionary();
 
         Dictionary<string, object> childUpdates = new()
@@ -46,6 +46,7 @@ public class FirebaseDbManager : MonoBehaviour
         };
         mDatabase.UpdateChildrenAsync(childUpdates).ContinueWithOnMainThread((task) =>
         {
+            Debug.Log("get here");
             if (task.Exception != null)
             {
                 Debug.Log($"Firebase Exception: {task.Exception}");

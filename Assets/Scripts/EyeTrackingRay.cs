@@ -162,5 +162,5 @@ public class EyeTrackingRay : MonoBehaviour
 
     private bool IsPinching() => (allowPinchSelection && handUsedForPinchSelection.GetFingerIsPinching(OVRHand.HandFinger.Index)) || mockHandUsedForPinchSelection;
 
-    private bool IsRightEyeClose() => System.Math.Round(faceExp[OVRFaceExpressions.FaceExpression.EyesClosedR]) >= 1.0;
+    private bool IsRightEyeClose() => Math.Round(faceExp[OVRFaceExpressions.FaceExpression.EyesClosedR]) >= 1.0;
 }
