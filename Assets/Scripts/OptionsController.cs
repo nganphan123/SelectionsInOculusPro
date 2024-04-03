@@ -67,5 +67,6 @@ public class OptionsController : MonoBehaviour
         selection.value = PlayerPrefs.GetInt("selection");
         // reset count to 1 to start new round group
         RoundController.count = 1;
+        RoundController.totalAttemptsMade = 0;
     }
 }

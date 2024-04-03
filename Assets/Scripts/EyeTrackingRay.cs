@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class EyeTrackingRay : MonoBehaviour
 {
+    // for eye tracking, the script is added to both eye, this boolean assign only one eye to keep track of trial count
+    [SerializeField]
+    private bool countTrial;
     [SerializeField]
     private float rayDistance = 1.0f;
 
@@ -49,7 +52,6 @@ public class EyeTrackingRay : MonoBehaviour
     public enum State
     {
         SELECT,
-        HOVERED,
         STILL,
     }
     public State state = State.STILL;
@@ -126,7 +128,6 @@ public class EyeTrackingRay : MonoBehaviour
 
             // Modify cursor if object is hit
             End = hit.point;
-            state = State.HOVERED;
 
             lastEyeInteractable = eyeInteractable;
         }
@@ -140,6 +141,11 @@ public class EyeTrackingRay : MonoBehaviour
             // lastEyeInteractable?.Select(true, (handUsedForPinchSelection?.IsTracked ?? false) ? handUsedForPinchSelection.transform : transform);
             lastEyeInteractable?.Select(true);
             // if (motionControl.enabled) motionControl.motionActive = false;
+            if (countTrial && state == State.STILL)
+            {
+                // first time making selection in the frame
+                RoundController.totalAttemptsMade += 1;
+            }
             state = State.SELECT;
         }
         else
@@ -155,12 +161,12 @@ public class EyeTrackingRay : MonoBehaviour
         // foreach (var interactable in interactables) interactable.Value.Hover(false);
         lastEyeInteractable?.Hover(false);
         lastEyeInteractable = null;
-        state = State.STILL;
+        // state = State.STILL;
     }
 
     private void OnDestroy() => interactables.Clear();
 
     private bool IsPinching() => (allowPinchSelection && handUsedForPinchSelection.GetFingerIsPinching(OVRHand.HandFinger.Index)) || mockHandUsedForPinchSelection;
 
-    private bool IsRightEyeClose() => Math.Round(faceExp[OVRFaceExpressions.FaceExpression.EyesClosedR]) >= 1.0;
+    private bool IsRightEyeClose() => Math.Round(faceExp[OVRFaceExpressions.FaceExpression.EyesClosedR]) >= 1.0 && faceExp[OVRFaceExpressions.FaceExpression.EyesClosedL] < 1.0;
 }

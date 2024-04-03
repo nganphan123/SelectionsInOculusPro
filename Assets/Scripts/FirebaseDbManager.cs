@@ -37,7 +37,9 @@ public class FirebaseDbManager : MonoBehaviour
         Debug.Log($"Record:: Speed: {speed}, size: {size}, selection: {selection}, tech: {technique}");
 
         string key = mDatabase.Push().Key;
-        RecordEntry entry = new(technique, selection, size.ToString("0.0"), speed.ToString("0.0000"), RoundController.endTime.Subtract(RoundController.startTime).TotalMilliseconds.ToString());
+        int totalAttempts = RoundController.totalAttemptsMade;
+        float errorRate = (1 - 1.0f / totalAttempts) * 100;
+        RecordEntry entry = new(totalAttempts, errorRate.ToString("000.00"), technique, selection, size.ToString("0.0"), speed.ToString("0.0000"), RoundController.endTime.Subtract(RoundController.startTime).TotalMilliseconds.ToString());
         Dictionary<string, object> entryValues = entry.ToDictionary();
 
         Dictionary<string, object> childUpdates = new()
@@ -46,7 +48,6 @@ public class FirebaseDbManager : MonoBehaviour
         };
         mDatabase.UpdateChildrenAsync(childUpdates).ContinueWithOnMainThread((task) =>
         {
-            Debug.Log("get here");
             if (task.Exception != null)
             {
                 Debug.Log($"Firebase Exception: {task.Exception}");
@@ -57,14 +58,17 @@ public class FirebaseDbManager : MonoBehaviour
 
 public class RecordEntry
 {
-    public string technique, selection, time, speed, size;
-    public RecordEntry(string technique, string selection, string size, string speed, string time)
+    public string technique, selection, time, speed, size, errorRate;
+    public int totalAttempts;
+    public RecordEntry(int totalAttempts, string errorRate, string technique, string selection, string size, string speed, string time)
     {
         this.technique = technique;
         this.speed = speed;
         this.size = size;
         this.selection = selection;
         this.time = time;
+        this.totalAttempts = totalAttempts;
+        this.errorRate = errorRate;
     }
 
     public Dictionary<string, object> ToDictionary()
@@ -75,6 +79,8 @@ public class RecordEntry
         result["technique"] = technique;
         result["size"] = size;
         result["time"] = time;
+        result["erroRate"] = errorRate;
+        result["attempts"] = totalAttempts;
 
         return result;
     }
