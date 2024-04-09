@@ -2,6 +2,7 @@ using UnityEngine;
 using Firebase.Database;
 using Firebase.Extensions;
 using System.Collections.Generic;
+using System;
 
 public class FirebaseDbManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class FirebaseDbManager : MonoBehaviour
 
     }
 
-    public void AddRecord()
+    public void AddRecord(int totalAttempts, DateTime startTime, DateTime endTime, DateTime lastHoverTime)
     {
         OptionsController.techniqueMap.TryGetValue(PlayerPrefs.GetInt("technique"), out string technique);
         OptionsController.speedMap.TryGetValue(PlayerPrefs.GetInt("speed"), out float speed);
@@ -37,9 +38,8 @@ public class FirebaseDbManager : MonoBehaviour
         Debug.Log($"Record:: Speed: {speed}, size: {size}, selection: {selection}, tech: {technique}");
 
         string key = mDatabase.Push().Key;
-        int totalAttempts = RoundController.totalAttemptsMade;
         float errorRate = (1 - 1.0f / totalAttempts) * 100;
-        RecordEntry entry = new(totalAttempts, errorRate.ToString("000.00"), technique, selection, size.ToString("0.0"), speed.ToString("0.0000"), RoundController.endTime.Subtract(RoundController.startTime).TotalMilliseconds.ToString());
+        RecordEntry entry = new(totalAttempts, errorRate.ToString("000.00"), technique, selection, size.ToString("0.0"), speed.ToString("0.0000"), endTime.Subtract(startTime).TotalMilliseconds.ToString(), lastHoverTime.Subtract(startTime).TotalMilliseconds.ToString());
         Dictionary<string, object> entryValues = entry.ToDictionary();
 
         Dictionary<string, object> childUpdates = new()
@@ -58,9 +58,9 @@ public class FirebaseDbManager : MonoBehaviour
 
 public class RecordEntry
 {
-    public string technique, selection, time, speed, size, errorRate;
+    public string technique, selection, time, speed, size, errorRate, lastHoverTime;
     public int totalAttempts;
-    public RecordEntry(int totalAttempts, string errorRate, string technique, string selection, string size, string speed, string time)
+    public RecordEntry(int totalAttempts, string errorRate, string technique, string selection, string size, string speed, string time, string lastHoverTime)
     {
         this.technique = technique;
         this.speed = speed;
@@ -69,6 +69,7 @@ public class RecordEntry
         this.time = time;
         this.totalAttempts = totalAttempts;
         this.errorRate = errorRate;
+        this.lastHoverTime = lastHoverTime;
     }
 
     public Dictionary<string, object> ToDictionary()
@@ -81,6 +82,7 @@ public class RecordEntry
         result["time"] = time;
         result["erroRate"] = errorRate;
         result["attempts"] = totalAttempts;
+        result["last hover time"] = lastHoverTime;
 
         return result;
     }

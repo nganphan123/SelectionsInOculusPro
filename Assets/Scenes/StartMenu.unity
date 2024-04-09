@@ -12610,7 +12610,6 @@ GameObject:
   - component: {fileID: 6408032887461275476}
   - component: {fileID: 4150365557670154156}
   - component: {fileID: 8230025151855728360}
-  - component: {fileID: 8230025151855728361}
   - component: {fileID: 8230025151855728362}
   m_Layer: 0
   m_Name: StartButton
@@ -13601,19 +13600,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &8230025151855728361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4753754224243651896}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e05a941d04d7c46bc31f330bcec9df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 1566728570}
 --- !u!114 &8230025151855728362
 MonoBehaviour:
   m_ObjectHideFlags: 0

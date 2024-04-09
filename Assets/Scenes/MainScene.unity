@@ -184,6 +184,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 0}
   meshRenderer: {fileID: 0}
 --- !u!114 &1265754
 MonoBehaviour:
@@ -960,7 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a426f26eb1d1c2748826b6fc12460331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countTrial: 1
+  isLeftEye: 1
   rayDistance: 1
   rayWidth: 0.01
   layersToInclude:
@@ -972,6 +973,7 @@ MonoBehaviour:
   rayDisplay: 1
   mockHandUsedForPinchSelection: 0
   faceExp: {fileID: 306874090}
+  roundController: {fileID: 232319581}
   End: {x: 0, y: 0, z: 0}
   state: 2
 --- !u!120 &214077824
@@ -1129,6 +1131,8 @@ MonoBehaviour:
   - {fileID: 4264950146227246362}
   - {fileID: 4264950146622528953}
   firebaseDbManager: {fileID: 402568131}
+  targetCube: {fileID: 0}
+  totalAttemptsMade: 0
 --- !u!1 &252463995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,6 +1305,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 0}
   meshRenderer: {fileID: 0}
 --- !u!114 &383341053
 MonoBehaviour:
@@ -1845,6 +1850,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 0}
   meshRenderer: {fileID: 0}
 --- !u!114 &563328057
 MonoBehaviour:
@@ -2780,7 +2786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a426f26eb1d1c2748826b6fc12460331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countTrial: 0
+  isLeftEye: 0
   rayDistance: 3
   rayWidth: 0.01
   layersToInclude:
@@ -2792,6 +2798,7 @@ MonoBehaviour:
   rayDisplay: 1
   mockHandUsedForPinchSelection: 0
   faceExp: {fileID: 306874090}
+  roundController: {fileID: 232319581}
   End: {x: 0, y: 0, z: 0}
   state: 2
 --- !u!120 &840233669
@@ -3331,6 +3338,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 0}
   meshRenderer: {fileID: 0}
 --- !u!114 &1069809086
 MonoBehaviour:
@@ -3831,9 +3839,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa53a71c676b9f4b899acf247ca4266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rayInteractor: {fileID: 214077823}
-  _hoverColor: {fileID: 2100000, guid: a751c1bec8992054cbdb6725c0f5b362, type: 2}
-  _stillColor: {fileID: 2100000, guid: ff19e84c12de7294597f099b86bfc6a5, type: 2}
 --- !u!114 &1185468565 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3827689620755440438, guid: fbfc588a949bb1a42b20e5bddc4cf8cf, type: 3}
@@ -3922,6 +3927,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 0}
   meshRenderer: {fileID: 0}
 --- !u!114 &1227842149
 MonoBehaviour:
@@ -4404,6 +4410,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 0}
+  roundController: {fileID: 0}
   meshRenderer: {fileID: 0}
 --- !u!114 &1321009397
 MonoBehaviour:
@@ -5161,7 +5168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a426f26eb1d1c2748826b6fc12460331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countTrial: 1
+  isLeftEye: 1
   rayDistance: 5
   rayWidth: 0.01
   layersToInclude:
@@ -5173,6 +5180,7 @@ MonoBehaviour:
   rayDisplay: 1
   mockHandUsedForPinchSelection: 0
   faceExp: {fileID: 306874090}
+  roundController: {fileID: 232319581}
   End: {x: 0, y: 0, z: 0}
   state: 2
 --- !u!120 &1851398403
@@ -5538,6 +5546,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 0}
   meshRenderer: {fileID: 0}
 --- !u!114 &1890413261
 MonoBehaviour:
@@ -5839,7 +5848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a426f26eb1d1c2748826b6fc12460331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countTrial: 0
+  isLeftEye: 0
   rayDistance: 1
   rayWidth: 0.01
   layersToInclude:
@@ -5851,6 +5860,7 @@ MonoBehaviour:
   rayDisplay: 0
   mockHandUsedForPinchSelection: 0
   faceExp: {fileID: 0}
+  roundController: {fileID: 0}
   End: {x: 0, y: 0, z: 0}
   state: 2
 --- !u!120 &1968594876
@@ -7952,6 +7962,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 232319581}
   meshRenderer: {fileID: 0}
 --- !u!65 &9150672931513547222
 BoxCollider:
@@ -8011,6 +8022,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 232319581}
   meshRenderer: {fileID: 0}
 --- !u!65 &9150672931821873997
 BoxCollider:
@@ -8070,6 +8082,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 232319581}
   meshRenderer: {fileID: 0}
 --- !u!65 &9150672932251793934
 BoxCollider:
@@ -8129,6 +8142,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 232319581}
   meshRenderer: {fileID: 0}
 --- !u!65 &9150672932914721453
 BoxCollider:
@@ -8188,6 +8202,7 @@ MonoBehaviour:
   OnSelectActiveMaterial: {fileID: 2100000, guid: 7cbc1312be42c6543a8fdced2f1be891, type: 2}
   OnIdleMaterial: {fileID: 2100000, guid: 40db383ca8ec18e41b25e2040dd7b644, type: 2}
   TargetMaterial: {fileID: 2100000, guid: ea635f83177b6be43a35a8d15dde7c14, type: 2}
+  roundController: {fileID: 232319581}
   meshRenderer: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

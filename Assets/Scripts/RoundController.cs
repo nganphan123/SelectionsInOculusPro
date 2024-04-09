@@ -8,17 +8,19 @@ public class RoundController : MonoBehaviour
     private GameObject[] cubes;
     [SerializeField]
     private FirebaseDbManager firebaseDbManager;
-    public static GameObject targetCube;
+    public GameObject targetCube;
+    public int totalAttemptsMade;
+    public DateTime startTime;
+    public DateTime endTime;
+    public DateTime lastHoverTime;
 
     public static int count;
     public static int totalTrialsCount;
-    public static int totalAttemptsMade;
-    public static DateTime startTime;
-    public static DateTime endTime;
     void Start()
     {
         System.Random rnd = new System.Random();
         targetCube = cubes[rnd.Next(0, cubes.Length)];
+        totalAttemptsMade = 0;
         startTime = DateTime.Now;
         switch (PlayerPrefs.GetInt("trialsCount"))
         {
@@ -36,8 +38,7 @@ public class RoundController : MonoBehaviour
 
     public void EndRound()
     {
-        firebaseDbManager.AddRecord();
-        totalAttemptsMade = 0;
+        firebaseDbManager.AddRecord(totalAttemptsMade, startTime, endTime, lastHoverTime);
         // if all rounds are done, go back to start menu
         if (count == totalTrialsCount)
         {

@@ -32,6 +32,8 @@ public class EyeInteractable : MonoBehaviour
 
     [SerializeField]
     private Material TargetMaterial;
+    [SerializeField]
+    private RoundController roundController;
 
     private Transform originalAnchor;
 
@@ -87,7 +89,7 @@ public class EyeInteractable : MonoBehaviour
     void Update()
     {
         // set target color
-        if (gameObject == RoundController.targetCube)
+        if (gameObject == roundController.targetCube)
         {
             meshRenderer.material = TargetMaterial;
             IsTarget = true;
@@ -100,13 +102,15 @@ public class EyeInteractable : MonoBehaviour
         {
             meshRenderer.material = OnHoverActiveMaterial;
             OnObjectHover?.Invoke(gameObject);
+            // instance of time the object was hovered, before selected
+            roundController.lastHoverTime = DateTime.Now;
             // statusText.text = $"<color=\"yellow\">HOVERED</color>";
         }
         if (IsSelected)
         {
-            if (gameObject == RoundController.targetCube)
+            if (gameObject == roundController.targetCube)
             {
-                RoundController.endTime = DateTime.Now;
+                roundController.endTime = DateTime.Now;
                 OnObjectSelect?.Invoke(gameObject);
             }
             meshRenderer.material = OnSelectActiveMaterial;

@@ -7,7 +7,7 @@ public class EyeTrackingRay : MonoBehaviour
 {
     // for eye tracking, the script is added to both eye, this boolean assign only one eye to keep track of trial count
     [SerializeField]
-    private bool countTrial;
+    private bool isLeftEye;
     [SerializeField]
     private float rayDistance = 1.0f;
 
@@ -34,6 +34,8 @@ public class EyeTrackingRay : MonoBehaviour
 
     [SerializeField]
     public OVRFaceExpressions faceExp;
+    [SerializeField]
+    private RoundController roundController;
 
     private bool intercepting;
 
@@ -141,10 +143,10 @@ public class EyeTrackingRay : MonoBehaviour
             // lastEyeInteractable?.Select(true, (handUsedForPinchSelection?.IsTracked ?? false) ? handUsedForPinchSelection.transform : transform);
             lastEyeInteractable?.Select(true);
             // if (motionControl.enabled) motionControl.motionActive = false;
-            if (countTrial && state == State.STILL)
+            if (isLeftEye && state == State.STILL)
             {
                 // first time making selection in the frame
-                RoundController.totalAttemptsMade += 1;
+                roundController.totalAttemptsMade += 1;
             }
             state = State.SELECT;
         }
