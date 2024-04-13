@@ -29,7 +29,7 @@ public class InteractableControl : MonoBehaviour
                 break;
         }
         // when object is in gaze range, slow down speed
-        slowSpeed = speed / 2;
+        slowSpeed = speed * 0.25f; // decrease speed by 75%
         reverse = false;
         rightBound = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         leftBound = new Vector3(transform.position.x * -1, transform.position.y, transform.position.z);

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class RoundController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class RoundController : MonoBehaviour
 
     public static int count;
     public static int totalTrialsCount;
+    public static List<Record> records = new List<Record>();
     void Start()
     {
         System.Random rnd = new System.Random();
@@ -34,15 +36,22 @@ public class RoundController : MonoBehaviour
                 totalTrialsCount = 15;
                 break;
         }
+        Debug.Log("trials count " + totalTrialsCount);
     }
 
     public void EndRound()
     {
-        firebaseDbManager.AddRecord(totalAttemptsMade, startTime, endTime, lastHoverTime);
+        Record record = new Record(totalAttemptsMade, startTime, endTime, lastHoverTime);
+        records.Add(record);
         // if all rounds are done, go back to start menu
         if (count == totalTrialsCount)
         {
+            if (PlayerPrefs.GetInt("onPractice") != 1)
+            {
+                firebaseDbManager.AddCombo(records);
+            }
             PlayerPrefs.SetString("roundCount", count.ToString());
+            records.Clear();
             SceneManager.LoadScene("StartMenu");
         }
         else
@@ -51,5 +60,20 @@ public class RoundController : MonoBehaviour
             PlayerPrefs.SetString("roundCount", count.ToString());
             SceneManager.LoadScene("RoundStart");
         }
+    }
+}
+
+public class Record
+{
+    public int totalAttemptsMade;
+    public DateTime startTime;
+    public DateTime endTime;
+    public DateTime lastHoverTime;
+    public Record(int totalAttemptsMade, DateTime startTime, DateTime endTime, DateTime lastHoverTime)
+    {
+        this.totalAttemptsMade = totalAttemptsMade;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.lastHoverTime = lastHoverTime;
     }
 }

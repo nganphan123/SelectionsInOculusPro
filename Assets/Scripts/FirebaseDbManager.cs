@@ -28,62 +28,92 @@ public class FirebaseDbManager : MonoBehaviour
 
     }
 
-    public void AddRecord(int totalAttempts, DateTime startTime, DateTime endTime, DateTime lastHoverTime)
+    public void AddCombo(List<Record> records)
     {
         OptionsController.techniqueMap.TryGetValue(PlayerPrefs.GetInt("technique"), out string technique);
         OptionsController.speedMap.TryGetValue(PlayerPrefs.GetInt("speed"), out float speed);
         OptionsController.sizeMap.TryGetValue(PlayerPrefs.GetInt("size"), out float size);
         OptionsController.selectionMap.TryGetValue(PlayerPrefs.GetInt("selection"), out string selection);
-
-        Debug.Log($"Record:: Speed: {speed}, size: {size}, selection: {selection}, tech: {technique}");
-
-        string key = mDatabase.Push().Key;
-        float errorRate = (1 - 1.0f / totalAttempts) * 100;
-        RecordEntry entry = new(totalAttempts, errorRate.ToString("000.00"), technique, selection, size.ToString("0.0"), speed.ToString("0.0000"), endTime.Subtract(startTime).TotalMilliseconds.ToString(), lastHoverTime.Subtract(startTime).TotalMilliseconds.ToString());
-        Dictionary<string, object> entryValues = entry.ToDictionary();
-
+        string uid = PlayerPrefs.GetInt("uid").ToString();
+        DatabaseReference userRecord = mDatabase.Child(uid);
+        string comboKey = userRecord.Push().Key;
+        OptionsConfig optionsConfig = new OptionsConfig(size.ToString("0.0"), technique, speed.ToString("0.0000"), selection);
+        Dictionary<string, object> optionsEntry = optionsConfig.ToDictionary();
         Dictionary<string, object> childUpdates = new()
         {
-            [key] = entryValues
+            [comboKey] = optionsEntry
         };
-        mDatabase.UpdateChildrenAsync(childUpdates).ContinueWithOnMainThread((task) =>
+        userRecord.UpdateChildrenAsync(childUpdates).ContinueWithOnMainThread((task) =>
         {
             if (task.Exception != null)
             {
                 Debug.Log($"Firebase Exception: {task.Exception}");
             }
         });
+
+        for (int i = 0; i < records.Count; i += 1)
+        {
+            Record singleRec = records[i];
+            DatabaseReference roundRecord = userRecord.Child(comboKey).Child("rounds");
+            float errorRate = (1 - 1.0f / singleRec.totalAttemptsMade) * 100;
+            string timeNeeded = singleRec.endTime.Subtract(singleRec.startTime).TotalMilliseconds.ToString();
+            SingleRound r = new SingleRound(errorRate.ToString("000.00"), singleRec.lastHoverTime.Subtract(singleRec.startTime).TotalMilliseconds.ToString(), singleRec.totalAttemptsMade, timeNeeded);
+            Dictionary<string, object> roundsEntry = r.ToDictionary();
+            childUpdates = new()
+            {
+                [i.ToString()] = roundsEntry
+            };
+            roundRecord.UpdateChildrenAsync(childUpdates).ContinueWithOnMainThread((task) =>
+        {
+            if (task.Exception != null)
+            {
+                Debug.Log($"Firebase Exception in add records: {task.Exception}");
+            }
+        });
+        }
     }
-}
 
-public class RecordEntry
-{
-    public string technique, selection, time, speed, size, errorRate, lastHoverTime;
-    public int totalAttempts;
-    public RecordEntry(int totalAttempts, string errorRate, string technique, string selection, string size, string speed, string time, string lastHoverTime)
+    public class SingleRound
     {
-        this.technique = technique;
-        this.speed = speed;
-        this.size = size;
-        this.selection = selection;
-        this.time = time;
-        this.totalAttempts = totalAttempts;
-        this.errorRate = errorRate;
-        this.lastHoverTime = lastHoverTime;
+        public string errorRate, lastHoverTime, totalTime;
+        public int totalAttempts;
+        public SingleRound(string errorRate, string lastHoverTime, int totalAttempts, string time)
+        {
+            this.errorRate = errorRate;
+            this.lastHoverTime = lastHoverTime;
+            this.totalAttempts = totalAttempts;
+            this.totalTime = time;
+        }
+        public Dictionary<string, object> ToDictionary()
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            result["errorRate"] = errorRate;
+            result["lastHoverTime"] = lastHoverTime;
+            result["totalAttempts"] = totalAttempts;
+            result["totalTime"] = totalTime;
+            return result;
+        }
     }
 
-    public Dictionary<string, object> ToDictionary()
+    public class OptionsConfig
     {
-        Dictionary<string, object> result = new Dictionary<string, object>();
-        result["speed"] = speed;
-        result["selection"] = selection;
-        result["technique"] = technique;
-        result["size"] = size;
-        result["time"] = time;
-        result["erroRate"] = errorRate;
-        result["attempts"] = totalAttempts;
-        result["last hover time"] = lastHoverTime;
+        public string size, technique, speed, selection;
+        public OptionsConfig(string size, string technique, string speed, string selection)
+        {
+            this.technique = technique;
+            this.speed = speed;
+            this.size = size;
+            this.selection = selection;
+        }
 
-        return result;
+        public Dictionary<string, object> ToDictionary()
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            result["speed"] = speed;
+            result["selection"] = selection;
+            result["technique"] = technique;
+            result["size"] = size;
+            return result;
+        }
     }
 }

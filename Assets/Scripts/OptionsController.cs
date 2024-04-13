@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionsController : MonoBehaviour
 {
@@ -14,6 +15,11 @@ public class OptionsController : MonoBehaviour
     public TMP_Dropdown trialsCount;
     [SerializeField]
     public TMP_Dropdown selection;
+    [SerializeField]
+    public Toggle practiceMode;
+
+    [SerializeField]
+    public TMP_Dropdown uid;
     public static Dictionary<int, string> techniqueMap = new Dictionary<int, string>{
         {0, "head"},
         {1, "eye"},
@@ -47,14 +53,24 @@ public class OptionsController : MonoBehaviour
         PlayerPrefs.SetInt("size", size.value);
     }
 
-    public void SetObjectNums()
+    public void SetTrialsCount()
     {
-        PlayerPrefs.SetInt("objNum", trialsCount.value);
+        PlayerPrefs.SetInt("trialsCount", trialsCount.value);
     }
 
     public void SetSelection()
     {
         PlayerPrefs.SetInt("selection", selection.value);
+    }
+
+    public void SetUid()
+    {
+        PlayerPrefs.SetInt("uid", uid.value);
+    }
+
+    public void SetPracticeMode()
+    {
+        PlayerPrefs.SetInt("onPractice", practiceMode.isOn ? 1 : 0);
     }
 
     // Start is called before the first frame update
@@ -63,8 +79,9 @@ public class OptionsController : MonoBehaviour
         technique.value = PlayerPrefs.GetInt("technique");
         speed.value = PlayerPrefs.GetInt("speed");
         size.value = PlayerPrefs.GetInt("size");
-        trialsCount.value = PlayerPrefs.GetInt("objNum");
+        trialsCount.value = PlayerPrefs.GetInt("trialsCount");
         selection.value = PlayerPrefs.GetInt("selection");
+        uid.value = PlayerPrefs.GetInt("uid");
         // reset count to 1 to start new round group
         RoundController.count = 1;
     }
