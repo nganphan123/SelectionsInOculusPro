@@ -49,20 +49,8 @@ public class EyeInteractable : MonoBehaviour
         // statusText = GetComponentInChildren<TextMeshPro>();
         originalAnchor = transform.parent;
         int sizeOpt = PlayerPrefs.GetInt("size");
-        Vector3 newSize;
-        switch (sizeOpt)
-        {
-            case 0:
-                newSize = new Vector3(0.1f, 0.1f, 0.1f);
-                break;
-            case 1:
-                newSize = new Vector3(0.2f, 0.2f, 0.2f);
-                break;
-            default:
-                newSize = new Vector3(0.3f, 0.3f, 0.3f);
-                break;
-
-        }
+        float oneDimSize = OptionsController.sizeMap[sizeOpt];
+        Vector3 newSize = new Vector3(oneDimSize, oneDimSize, oneDimSize);
         // change cube size
         transform.localScale = newSize;
         SetGaze(false);

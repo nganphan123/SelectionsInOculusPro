@@ -7,7 +7,7 @@ public class EyeTrackingRay : MonoBehaviour
 {
     // for eye tracking, the script is added to both eye, this boolean assign only one eye to keep track of trial count
     [SerializeField]
-    private bool isLeftEye;
+    private bool isRightEye;
     [SerializeField]
     private float rayDistance = 1.0f;
 
@@ -143,7 +143,7 @@ public class EyeTrackingRay : MonoBehaviour
             // lastEyeInteractable?.Select(true, (handUsedForPinchSelection?.IsTracked ?? false) ? handUsedForPinchSelection.transform : transform);
             lastEyeInteractable?.Select(true);
             // if (motionControl.enabled) motionControl.motionActive = false;
-            if (isLeftEye && state == State.STILL)
+            if (isRightEye && state == State.STILL)
             {
                 // first time making selection in the frame
                 roundController.totalAttemptsMade += 1;
@@ -170,5 +170,5 @@ public class EyeTrackingRay : MonoBehaviour
 
     private bool IsPinching() => (allowPinchSelection && handUsedForPinchSelection.GetFingerIsPinching(OVRHand.HandFinger.Index)) || mockHandUsedForPinchSelection;
 
-    private bool IsRightEyeClose() => Math.Round(faceExp[OVRFaceExpressions.FaceExpression.EyesClosedR]) >= 1.0 && faceExp[OVRFaceExpressions.FaceExpression.EyesClosedL] < 1.0;
+    private bool IsRightEyeClose() => Math.Round(faceExp[OVRFaceExpressions.FaceExpression.EyesClosedR]) >= 1.0 && Math.Round(faceExp[OVRFaceExpressions.FaceExpression.EyesClosedL]) == 0;
 }

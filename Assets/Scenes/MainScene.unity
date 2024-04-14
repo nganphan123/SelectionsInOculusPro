@@ -961,7 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a426f26eb1d1c2748826b6fc12460331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeftEye: 1
+  isRightEye: 1
   rayDistance: 1
   rayWidth: 0.01
   layersToInclude:
@@ -2564,9 +2564,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 159718, guid: 4b650a383c3760f449b65ff48bccdd5f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1968594876}
-    - targetCorrespondingSourceObject: {fileID: 159718, guid: 4b650a383c3760f449b65ff48bccdd5f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1968594875}
   m_SourcePrefab: {fileID: 100100000, guid: 4b650a383c3760f449b65ff48bccdd5f, type: 3}
 --- !u!4 &723566336 stripped
 Transform:
@@ -2786,7 +2783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a426f26eb1d1c2748826b6fc12460331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeftEye: 0
+  isRightEye: 1
   rayDistance: 3
   rayWidth: 0.01
   layersToInclude:
@@ -5168,7 +5165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a426f26eb1d1c2748826b6fc12460331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLeftEye: 1
+  isRightEye: 0
   rayDistance: 5
   rayWidth: 0.01
   layersToInclude:
@@ -5836,33 +5833,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 459718, guid: 4b650a383c3760f449b65ff48bccdd5f, type: 3}
   m_PrefabInstance: {fileID: 723566335}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1968594875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1512679553}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a426f26eb1d1c2748826b6fc12460331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isLeftEye: 0
-  rayDistance: 1
-  rayWidth: 0.01
-  layersToInclude:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  rayColorDefaultState: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  rayColorHoverState: {r: 1, g: 0, b: 0, a: 1}
-  handUsedForPinchSelection: {fileID: 0}
-  rayDisplay: 0
-  mockHandUsedForPinchSelection: 0
-  faceExp: {fileID: 0}
-  roundController: {fileID: 0}
-  End: {x: 0, y: 0, z: 0}
-  state: 2
 --- !u!120 &1968594876
 LineRenderer:
   serializedVersion: 2

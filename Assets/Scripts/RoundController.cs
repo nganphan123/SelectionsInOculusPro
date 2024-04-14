@@ -16,7 +16,7 @@ public class RoundController : MonoBehaviour
     public DateTime lastHoverTime;
 
     public static int count;
-    public static int totalTrialsCount;
+    public static int totalTrialsCount = 10;
     public static List<Record> records = new List<Record>();
     void Start()
     {
@@ -24,19 +24,6 @@ public class RoundController : MonoBehaviour
         targetCube = cubes[rnd.Next(0, cubes.Length)];
         totalAttemptsMade = 0;
         startTime = DateTime.Now;
-        switch (PlayerPrefs.GetInt("trialsCount"))
-        {
-            case 0:
-                totalTrialsCount = 5;
-                break;
-            case 1:
-                totalTrialsCount = 10;
-                break;
-            case 2:
-                totalTrialsCount = 15;
-                break;
-        }
-        Debug.Log("trials count " + totalTrialsCount);
     }
 
     public void EndRound()

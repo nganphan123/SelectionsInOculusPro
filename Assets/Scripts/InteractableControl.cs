@@ -16,18 +16,7 @@ public class InteractableControl : MonoBehaviour
     void Start()
     {
         int preferredSpeed = PlayerPrefs.GetInt("speed");
-        switch (preferredSpeed)
-        {
-            case 0:
-                speed = 0.01f;
-                break;
-            case 1:
-                speed = 0.02f;
-                break;
-            case 2:
-                speed = 0.03f;
-                break;
-        }
+        speed = OptionsController.speedMap[preferredSpeed];
         // when object is in gaze range, slow down speed
         slowSpeed = speed * 0.25f; // decrease speed by 75%
         reverse = false;
