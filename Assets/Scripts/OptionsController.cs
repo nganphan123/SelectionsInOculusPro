@@ -29,7 +29,7 @@ public class OptionsController : MonoBehaviour
     };
     public static Dictionary<int, float> speedMap = new Dictionary<int, float>{
         {0, 0.01f},
-        {2, 0.03f},
+        {1, 0.03f},
     };
     public static Dictionary<int, float> sizeMap = new Dictionary<int, float>{
         {0, 0.1f},
