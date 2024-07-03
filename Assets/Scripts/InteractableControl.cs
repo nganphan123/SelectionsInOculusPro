@@ -1,3 +1,5 @@
+using BezierSolution;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractableControl : MonoBehaviour
@@ -19,9 +21,9 @@ public class InteractableControl : MonoBehaviour
         speed = OptionsController.speedMap[preferredSpeed];
         // when object is in gaze range, slow down speed
         slowSpeed = speed * 0.4f; // decrease speed by 75%
-        reverse = false;
-        rightBound = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        leftBound = new Vector3(transform.position.x * -1, transform.position.y, transform.position.z);
+        // reverse = false;
+        // rightBound = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        // leftBound = new Vector3(transform.position.x * -1, transform.position.y, transform.position.z);
     }
 
     public void SetSlow(bool state)
@@ -32,27 +34,40 @@ public class InteractableControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!motionActive) return;
+        if (!motionActive){
+            transform.GetComponent<BezierWalkerWithSpeed>().speed = 0;
+        }
         float currentSpeed;
-        if (isSlow)
-        {
+        if(isSlow){
             currentSpeed = slowSpeed;
         }
-        else
-        {
-            currentSpeed = speed;
+        else{
+            currentSpeed=speed;
         }
-        if (!reverse)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, rightBound, currentSpeed);
+        if(currentSpeed != transform.GetComponent<BezierWalkerWithSpeed>().speed){
+            transform.GetComponent<BezierWalkerWithSpeed>().speed = currentSpeed;
         }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, leftBound, currentSpeed);
-        }
-        if (transform.position == leftBound || transform.position == rightBound)
-        {
-            reverse = !reverse;
-        }
+        // if (!motionActive) return;
+        // float currentSpeed;
+        // if (isSlow)
+        // {
+        //     currentSpeed = slowSpeed;
+        // }
+        // else
+        // {
+        //     currentSpeed = speed;
+        // }
+        // if (!reverse)
+        // {
+        //     transform.position = Vector3.MoveTowards(transform.position, rightBound, currentSpeed);
+        // }
+        // else
+        // {
+        //     transform.position = Vector3.MoveTowards(transform.position, leftBound, currentSpeed);
+        // }
+        // if (transform.position == leftBound || transform.position == rightBound)
+        // {
+        //     reverse = !reverse;
+        // }
     }
 }

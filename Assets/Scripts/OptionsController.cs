@@ -5,18 +5,11 @@ using UnityEngine.UI;
 
 public class OptionsController : MonoBehaviour
 {
-    [SerializeField]
     public TMP_Dropdown technique;
-    [SerializeField]
     public TMP_Dropdown speed;
-    [SerializeField]
     public TMP_Dropdown size;
-    [SerializeField]
     public TMP_Dropdown selection;
-    [SerializeField]
     public Toggle practiceMode;
-
-    [SerializeField]
     public TMP_Dropdown uid;
     public static Dictionary<int, string> techniqueMap = new Dictionary<int, string>{
         {0, "head"},
@@ -28,12 +21,12 @@ public class OptionsController : MonoBehaviour
         {1, "right eye blinking"},
     };
     public static Dictionary<int, float> speedMap = new Dictionary<int, float>{
-        {0, 0.01f},
-        {1, 0.03f},
+        {0, 2f},
+        {1, 5f},
     };
     public static Dictionary<int, float> sizeMap = new Dictionary<int, float>{
         {0, 0.1f},
-        {1, 0.2f},
+        {1, 0.3f},
     };
 
     public void SetSpeed()

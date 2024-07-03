@@ -50,7 +50,7 @@ public class EyeInteractable : MonoBehaviour
         originalAnchor = transform.parent;
         int sizeOpt = PlayerPrefs.GetInt("size");
         float oneDimSize = OptionsController.sizeMap[sizeOpt];
-        Vector3 newSize = new Vector3(oneDimSize, oneDimSize, oneDimSize);
+        Vector3 newSize = new Vector3(oneDimSize, 0.01f, oneDimSize);
         // change cube size
         transform.localScale = newSize;
         SetGaze(false);
