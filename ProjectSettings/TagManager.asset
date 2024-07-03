@@ -11,12 +11,12 @@ TagManager:
   - Cube
   - Water
   - UI
+  - HiddenMesh
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Character
+  - MirroredCharacter
   - 
   - 
   - 
