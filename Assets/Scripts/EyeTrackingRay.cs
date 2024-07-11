@@ -36,6 +36,8 @@ public class EyeTrackingRay : MonoBehaviour
     public OVRFaceExpressions faceExp;
     [SerializeField]
     private RoundController roundController;
+    [SerializeField]
+    private GameObject vemDisplay;
 
     private bool intercepting;
 
@@ -46,8 +48,6 @@ public class EyeTrackingRay : MonoBehaviour
     private Dictionary<int, EyeInteractable> interactables = new Dictionary<int, EyeInteractable>();
 
     private EyeInteractable lastEyeInteractable;
-
-    public Vector3 End;
 
     Func<bool> selectObj;
 
@@ -116,6 +116,19 @@ public class EyeTrackingRay : MonoBehaviour
         {
             OnHoverEnded();
             lineRenderer.startColor = lineRenderer.endColor = rayColorHoverState;
+            VemInteractable vemInteractable = vemDisplay.GetComponent<VemInteractable>();
+            // Display cursor if ray hits vem display
+            if (hit.transform.gameObject==vemDisplay){
+                vemInteractable.Hover(true);
+                if (isRightEye){
+                    vemInteractable.SetLeftHit(hit.point);
+                }else{
+                    vemInteractable.SetRightHit(hit.point);
+                }
+                return;
+            }else{
+                vemInteractable.Hover(false);
+            }
             // keep cache of eye interactables
             if (!interactables.TryGetValue(hit.transform.gameObject.GetHashCode(), out EyeInteractable eyeInteractable))
             {
@@ -127,9 +140,6 @@ public class EyeTrackingRay : MonoBehaviour
             lineRenderer.SetPosition(1, new Vector3(0, 0, toLocalSpace.z));
 
             eyeInteractable.Hover(true);
-
-            // Modify cursor if object is hit
-            End = hit.point;
 
             lastEyeInteractable = eyeInteractable;
         }

@@ -5,19 +5,13 @@ using UnityEngine.UI;
 
 public class OptionsController : MonoBehaviour
 {
-    [SerializeField]
     public TMP_Dropdown technique;
-    [SerializeField]
     public TMP_Dropdown speed;
-    [SerializeField]
     public TMP_Dropdown size;
-    [SerializeField]
     public TMP_Dropdown selection;
-    [SerializeField]
     public Toggle practiceMode;
-
-    [SerializeField]
     public TMP_Dropdown uid;
+    public TMP_Dropdown vem;
     public static Dictionary<int, string> techniqueMap = new Dictionary<int, string>{
         {0, "head"},
         {1, "eye"},
@@ -28,12 +22,12 @@ public class OptionsController : MonoBehaviour
         {1, "right eye blinking"},
     };
     public static Dictionary<int, float> speedMap = new Dictionary<int, float>{
-        {0, 0.01f},
-        {1, 0.03f},
+        {0, 2f},
+        {1, 5f},
     };
     public static Dictionary<int, float> sizeMap = new Dictionary<int, float>{
         {0, 0.1f},
-        {1, 0.2f},
+        {1, 0.3f},
     };
 
     public void SetSpeed()
@@ -63,6 +57,10 @@ public class OptionsController : MonoBehaviour
         PlayerPrefs.SetInt("onPractice", practiceMode.isOn ? 1 : 0);
     }
 
+    public void SetVemDisplay(){
+        PlayerPrefs.SetInt("vemType", vem.value);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +69,7 @@ public class OptionsController : MonoBehaviour
         size.value = PlayerPrefs.GetInt("size");
         selection.value = PlayerPrefs.GetInt("selection");
         uid.value = PlayerPrefs.GetInt("uid");
+        vem.value = PlayerPrefs.GetInt("vemType");
         PlayerPrefs.SetInt("onPractice", practiceMode.isOn ? 1 : 0);
         // reset count to 1 to start new round group
         RoundController.count = 1;
