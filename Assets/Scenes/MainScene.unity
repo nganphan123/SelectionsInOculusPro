@@ -1236,7 +1236,7 @@ MonoBehaviour:
   mockHandUsedForPinchSelection: 0
   faceExp: {fileID: 306874090}
   roundController: {fileID: 232319581}
-  vemDisplay: {fileID: 0}
+  vemDisplay: {fileID: 2058909643}
   state: 2
 --- !u!120 &214077824
 LineRenderer:
@@ -31675,6 +31675,7 @@ MonoBehaviour:
   vem2000: {fileID: 2058909643}
   vem4000: {fileID: 1034159351}
   vem6000: {fileID: 814059400}
+  vemFlat: {fileID: 355262254}
 --- !u!4 &879109468
 Transform:
   m_ObjectHideFlags: 0

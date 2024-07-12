@@ -60,9 +60,9 @@ public class InteractableControl : MonoBehaviour
         spline.Initialize(2);
         float y = transform.TransformPoint(transform.position).y;
         float worldXCenter = transform.TransformPoint(new Vector3(xCenter,0,0)).x;
-        spline[0].position = new Vector3(worldXCenter - vemWidth/2 + offset, y, vemDistance-0.01f);
+        spline[0].position = new Vector3(worldXCenter - vemWidth/2 + offset*5, y, vemDistance-0.01f);
         spline[0].normal = new Vector3(0,0,1);
-        spline[1].position = new Vector3(worldXCenter + vemWidth/2 - offset, y, vemDistance-0.01f);
+        spline[1].position = new Vector3(worldXCenter + vemWidth/2 - offset*5, y, vemDistance-0.01f);
         spline[1].normal = new Vector3(0,0,1);
         return spline;
     }
