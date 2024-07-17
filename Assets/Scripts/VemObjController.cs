@@ -18,8 +18,8 @@ public class VemObjController : MonoBehaviour
         vem4000.SetActive(false);
         vem6000.SetActive(false);
         vemFlat.SetActive(false);
-        int size = PlayerPrefs.GetInt("vemType");
-        switch(size){
+        int type = PlayerPrefs.GetInt("vemType");
+        switch(type){
             case 0: vem2000.SetActive(true); break;
             case 1: vem4000.SetActive(true); break;
             case 2: vem6000.SetActive(true); break;

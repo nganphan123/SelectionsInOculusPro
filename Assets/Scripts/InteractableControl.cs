@@ -18,7 +18,6 @@ public class InteractableControl : MonoBehaviour
     void Start()
     {
         vemOption = PlayerPrefs.GetInt("vemType");
-        vemOption = 3;
         bezierControl = transform.GetComponent<BezierWalkerWithSpeed>();
         BezierSpline spline = createBezierLine();
         bezierControl.spline = spline;
