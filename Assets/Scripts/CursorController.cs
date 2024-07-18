@@ -4,25 +4,25 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-public class VemInteractable : MonoBehaviour
+public class CursorController : MonoBehaviour
 {
     [field: SerializeField]
     public bool IsHovered { get; private set; }
 
-    [SerializeField]
-    public GameObject cursor;
-
     private Vector3 leftHit;
     private Vector3 rightHit;
+    private Renderer renderer;
     
     // Start is called before the first frame update
     void Start()
     {
-        cursor.SetActive(false);
+        renderer = transform.GetComponent<Renderer>();
+        renderer.enabled = false;
     }
 
     public void Hover(bool state)
     {
+        Debug.Log("set hover" + state);
         IsHovered = state;
     }
 
@@ -35,13 +35,11 @@ public class VemInteractable : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        cursor.SetActive(IsHovered);
-        Debug.Log("cursor active" + cursor.active);
-        Debug.Log("is vem hovered " + IsHovered);
-        if(IsHovered && cursor != null){
-            cursor.transform.position = Vector3.Lerp(leftHit, rightHit, 0.5f);
+        renderer.enabled = IsHovered;
+        if(IsHovered){
+            transform.position = Vector3.Lerp(leftHit, rightHit, 0.5f);
         }
     }
 }

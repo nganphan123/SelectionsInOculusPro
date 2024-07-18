@@ -37,8 +37,9 @@ public class EyeTrackingRay : MonoBehaviour
     [SerializeField]
     private RoundController roundController;
     [SerializeField]
-    private GameObject vemDisplay;
+    private GameObject cursor;
 
+    private CursorController cursorController;
     private bool intercepting;
 
     private bool allowPinchSelection;
@@ -61,6 +62,7 @@ public class EyeTrackingRay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cursorController = cursor.GetComponent<CursorController>();
         lineRenderer = GetComponent<LineRenderer>();
         allowPinchSelection = handUsedForPinchSelection != null;
         int selection = PlayerPrefs.GetInt("selection");
@@ -115,20 +117,26 @@ public class EyeTrackingRay : MonoBehaviour
         if (intercepting)
         {
             OnHoverEnded();
+            SetCursorPosition(hit);
             lineRenderer.startColor = lineRenderer.endColor = rayColorHoverState;
-            VemInteractable vemInteractable = vemDisplay.GetComponent<VemInteractable>();
-            // Display cursor if ray hits vem display
-            if (hit.transform.gameObject==vemDisplay){
-                vemInteractable.Hover(true);
-                if (isRightEye){
-                    vemInteractable.SetLeftHit(hit.point);
-                }else{
-                    vemInteractable.SetRightHit(hit.point);
-                }
+            int vemLayer = LayerMask.NameToLayer("VemDisplay");
+            Debug.Log("hit layer " + hit.transform.gameObject.layer);
+            if (hit.transform.gameObject.layer == vemLayer){
                 return;
-            }else{
-                vemInteractable.Hover(false);
             }
+            // VemInteractable vemInteractable = vemDisplay.GetComponent<VemInteractable>();
+            // // Display cursor if ray hits vem display
+            // if (hit.transform.gameObject==vemDisplay){
+            //     vemInteractable.Hover(true);
+            //     if (isRightEye){
+            //         vemInteractable.SetLeftHit(hit.point);
+            //     }else{
+            //         vemInteractable.SetRightHit(hit.point);
+            //     }
+            //     return;
+            // }else{
+            //     vemInteractable.Hover(false);
+            // }
             // keep cache of eye interactables
             if (!interactables.TryGetValue(hit.transform.gameObject.GetHashCode(), out EyeInteractable eyeInteractable))
             {
@@ -142,6 +150,21 @@ public class EyeTrackingRay : MonoBehaviour
             eyeInteractable.Hover(true);
 
             lastEyeInteractable = eyeInteractable;
+        }else{
+            UnsetCursor();
+        }
+    }
+
+    private void UnsetCursor(){
+        cursorController.Hover(false);
+    }
+
+    private void SetCursorPosition(RaycastHit hit){
+        cursorController.Hover(true);
+        if (isRightEye){
+            cursorController.SetRightHit(hit.point);
+        }else{
+            cursorController.SetLeftHit(hit.point);
         }
     }
 
