@@ -30,6 +30,13 @@ public class OptionsController : MonoBehaviour
         {1, 0.3f},
     };
 
+    public static Dictionary<int, string> vemMap = new Dictionary<int, string>{
+        {0, "2000R"},
+        {1, "4000R"},
+        {2, "6000R"},
+        {3, "flat"},
+    };
+
     public void SetSpeed()
     {
         PlayerPrefs.SetInt("speed", speed.value);

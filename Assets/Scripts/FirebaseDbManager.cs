@@ -34,10 +34,11 @@ public class FirebaseDbManager : MonoBehaviour
         OptionsController.speedMap.TryGetValue(PlayerPrefs.GetInt("speed"), out float speed);
         OptionsController.sizeMap.TryGetValue(PlayerPrefs.GetInt("size"), out float size);
         OptionsController.selectionMap.TryGetValue(PlayerPrefs.GetInt("selection"), out string selection);
+        OptionsController.vemMap.TryGetValue(PlayerPrefs.GetInt("selection"), out string vemType);
         string uid = PlayerPrefs.GetInt("uid").ToString();
         DatabaseReference userRecord = mDatabase.Child(uid);
         string comboKey = userRecord.Push().Key;
-        OptionsConfig optionsConfig = new OptionsConfig(size.ToString("0.0"), technique, speed.ToString("0.0000"), selection);
+        OptionsConfig optionsConfig = new OptionsConfig(size.ToString("0.0"), technique, speed.ToString("0.0000"), selection, vemType);
         Dictionary<string, object> optionsEntry = optionsConfig.ToDictionary();
         Dictionary<string, object> childUpdates = new()
         {
@@ -97,13 +98,14 @@ public class FirebaseDbManager : MonoBehaviour
 
     public class OptionsConfig
     {
-        public string size, technique, speed, selection;
-        public OptionsConfig(string size, string technique, string speed, string selection)
+        public string size, technique, speed, selection, vemType;
+        public OptionsConfig(string size, string technique, string speed, string selection, string vemType)
         {
             this.technique = technique;
             this.speed = speed;
             this.size = size;
             this.selection = selection;
+            this.vemType = vemType;
         }
 
         public Dictionary<string, object> ToDictionary()
@@ -113,6 +115,7 @@ public class FirebaseDbManager : MonoBehaviour
             result["selection"] = selection;
             result["technique"] = technique;
             result["size"] = size;
+            result["vemType"] = vemType;
             return result;
         }
     }
