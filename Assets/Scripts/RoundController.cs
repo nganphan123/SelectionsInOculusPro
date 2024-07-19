@@ -9,6 +9,7 @@ public class RoundController : MonoBehaviour
     private GameObject[] cubes;
     [SerializeField]
     private FirebaseDbManager firebaseDbManager;
+    private static int prevTarget = -1;
     public GameObject targetCube;
     public int totalAttemptsMade;
     public DateTime startTime;
@@ -20,10 +21,19 @@ public class RoundController : MonoBehaviour
     public static List<Record> records = new List<Record>();
     void Start()
     {
-        System.Random rnd = new System.Random();
-        targetCube = cubes[rnd.Next(0, cubes.Length)];
+        targetCube = cubes[GetRandomInt()];
         totalAttemptsMade = 0;
         startTime = DateTime.Now;
+    }
+
+    private int GetRandomInt(){
+        System.Random rnd = new System.Random();
+        int curr = rnd.Next(0, cubes.Length);
+        while (curr == prevTarget){
+            curr = rnd.Next(0, cubes.Length);
+        }
+        prevTarget = curr;
+        return curr;
     }
 
     public void EndRound()
