@@ -14,10 +14,14 @@ public class CursorController : MonoBehaviour
     private Vector3 leftHit;
     private Vector3 rightHit;
     private Renderer renderer;
+    private Vector3 targetPosition;
+    private bool isEyeInteractor;
     
     // Start is called before the first frame update
     void Start()
     {
+        int techniqueOption = PlayerPrefs.GetInt("technique");
+        isEyeInteractor = techniqueOption == 1 || techniqueOption == 2; 
         renderer = transform.GetComponent<Renderer>();
         renderer.enabled = false;
     }
@@ -40,11 +44,16 @@ public class CursorController : MonoBehaviour
     void Update()
     {
         renderer.enabled = IsHovered;
+
         if(IsHovered){
-            // transform.position = Vector3.Lerp(leftHit, rightHit, 0.5f);
+            if(isEyeInteractor){
+                // find middle point
+                targetPosition = (leftHit + rightHit) / 2.0f;
+            }else{
+                targetPosition = rightHit;
+            }
             var step =  speed * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, rightHit, step);
-            // transform.position = rightHit;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
         }
     }
 }
