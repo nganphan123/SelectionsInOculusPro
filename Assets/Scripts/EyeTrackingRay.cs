@@ -121,7 +121,6 @@ public class EyeTrackingRay : MonoBehaviour
             // Approach 1: Display cursor if ray hits vem display
             SetCursorPosition(hit);
             int vemLayer = LayerMask.NameToLayer("VemDisplay");
-            Debug.Log("hit layer " + hit.transform.gameObject.layer);
             if (hit.transform.gameObject.layer == vemLayer){
                 return;
             }
@@ -152,7 +151,7 @@ public class EyeTrackingRay : MonoBehaviour
 
             lastEyeInteractable = eyeInteractable;
         }else{
-            // UnsetCursor();
+            UnsetCursor();
         }
     }
 

@@ -8,6 +8,8 @@ public class CursorController : MonoBehaviour
 {
     [field: SerializeField]
     public bool IsHovered { get; private set; }
+    [field: SerializeField]
+    public float speed;
 
     private Vector3 leftHit;
     private Vector3 rightHit;
@@ -40,7 +42,9 @@ public class CursorController : MonoBehaviour
         renderer.enabled = IsHovered;
         if(IsHovered){
             // transform.position = Vector3.Lerp(leftHit, rightHit, 0.5f);
-            transform.position = rightHit;
+            var step =  speed * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, rightHit, step);
+            // transform.position = rightHit;
         }
     }
 }
