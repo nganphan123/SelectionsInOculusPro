@@ -119,15 +119,14 @@ public class EyeTrackingRay : MonoBehaviour
             OnHoverEnded();
             lineRenderer.startColor = lineRenderer.endColor = rayColorHoverState;
             // Approach 1: Display cursor if ray hits vem display
-            // SetCursorPosition(hit);
-            // int vemLayer = LayerMask.NameToLayer("VemDisplay");
-            // Debug.Log("hit layer " + hit.transform.gameObject.layer);
-            // if (hit.transform.gameObject.layer == vemLayer){
-            //     return;
-            // }
-            // VemInteractable vemInteractable = vemDisplay.GetComponent<VemInteractable>();
-        
+            SetCursorPosition(hit);
+            int vemLayer = LayerMask.NameToLayer("VemDisplay");
+            Debug.Log("hit layer " + hit.transform.gameObject.layer);
+            if (hit.transform.gameObject.layer == vemLayer){
+                return;
+            }
             // Approach 2: Display cursor if ray hits vem display
+            // VemInteractable vemInteractable = vemDisplay.GetComponent<VemInteractable>();
             // if (hit.transform.gameObject==vemDisplay){
             //     vemInteractable.Hover(true);
             //     if (isRightEye){

@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Rigidbody))]
+// [RequireComponent(typeof(Collider))]
+// [RequireComponent(typeof(Rigidbody))]
 public class CursorController : MonoBehaviour
 {
     [field: SerializeField]
@@ -35,11 +35,12 @@ public class CursorController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         renderer.enabled = IsHovered;
         if(IsHovered){
-            transform.position = Vector3.Lerp(leftHit, rightHit, 0.5f);
+            // transform.position = Vector3.Lerp(leftHit, rightHit, 0.5f);
+            transform.position = rightHit;
         }
     }
 }
