@@ -28,7 +28,6 @@ public class CursorController : MonoBehaviour
 
     public void Hover(bool state)
     {
-        Debug.Log("set hover" + state);
         IsHovered = state;
     }
 
@@ -41,19 +40,21 @@ public class CursorController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         renderer.enabled = IsHovered;
 
         if(IsHovered){
             if(isEyeInteractor){
                 // find middle point
-                targetPosition = (leftHit + rightHit) / 2.0f;
+                targetPosition = Vector3.Lerp(leftHit, rightHit, 0.5f);
             }else{
                 targetPosition = rightHit;
             }
-            var step =  speed * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+            if(Vector3.Distance(transform.position, targetPosition) > 0.05f){
+                var step =  speed * Time.deltaTime; // calculate distance to move
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+            }
         }
     }
 }

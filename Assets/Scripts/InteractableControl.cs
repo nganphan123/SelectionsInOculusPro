@@ -11,7 +11,7 @@ public class InteractableControl : MonoBehaviour
     public bool isSlow;
     public bool motionActive = true;
     private BezierWalkerWithSpeed bezierControl;
-    private float offset = 0.1f;
+    private float offset = 0.2f;
     private int vemOption;
 
     // Start is called before the first frame update
