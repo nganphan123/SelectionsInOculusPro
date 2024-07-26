@@ -40,21 +40,22 @@ public class CursorController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         renderer.enabled = IsHovered;
-
+        Vector3 newTargetPos;
         if(IsHovered){
             if(isEyeInteractor){
                 // find middle point
-                targetPosition = Vector3.Lerp(leftHit, rightHit, 0.5f);
+                newTargetPos = Vector3.Lerp(leftHit, rightHit, 0.5f);
             }else{
-                targetPosition = rightHit;
+                newTargetPos = rightHit;
             }
-            if(Vector3.Distance(transform.position, targetPosition) > 0.05f){
-                var step =  speed * Time.deltaTime; // calculate distance to move
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+            if(Vector3.Distance(newTargetPos, targetPosition) > 0.05f){
+                targetPosition = newTargetPos;
             }
+            var step =  speed * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
         }
     }
 }

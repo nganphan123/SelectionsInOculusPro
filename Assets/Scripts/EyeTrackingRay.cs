@@ -40,7 +40,6 @@ public class EyeTrackingRay : MonoBehaviour
     private GameObject cursor;
 
     private CursorController cursorController;
-    private bool intercepting;
 
     private bool allowPinchSelection;
 
@@ -49,6 +48,8 @@ public class EyeTrackingRay : MonoBehaviour
     private Dictionary<int, EyeInteractable> interactables = new Dictionary<int, EyeInteractable>();
 
     private EyeInteractable lastEyeInteractable;
+    private RaycastHit[] hits = new RaycastHit[6];
+    private int hitCount;
 
     Func<bool> selectObj;
 
@@ -98,7 +99,7 @@ public class EyeTrackingRay : MonoBehaviour
         SelectionStarted();
 
         // clear all hover states
-        if (!intercepting)
+        if (!(hitCount > 0))
         {
             lineRenderer.startColor = lineRenderer.endColor = rayColorDefaultState;
             lineRenderer.SetPosition(1, new Vector3(0, 0, transform.position.z + rayDistance));
@@ -112,32 +113,20 @@ public class EyeTrackingRay : MonoBehaviour
 
         Vector3 rayDirection = transform.TransformDirection(Vector3.forward) * rayDistance;
 
-        intercepting = Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, Mathf.Infinity, layersToInclude);
+        hitCount = Physics.RaycastNonAlloc(transform.position, rayDirection, hits, Mathf.Infinity, layersToInclude);
 
-        if (intercepting)
+        if (hitCount > 0)
         {
             OnHoverEnded();
             lineRenderer.startColor = lineRenderer.endColor = rayColorHoverState;
             // Approach 1: Display cursor if ray hits vem display
-            SetCursorPosition(hit);
+            for(int i = 0; i < hitCount; i++){
+            RaycastHit hit= hits[i];
             int vemLayer = LayerMask.NameToLayer("VemDisplay");
             if (hit.transform.gameObject.layer == vemLayer){
-                return;
+                SetCursorPosition(hit);
+                continue;
             }
-            // Approach 2: Display cursor if ray hits vem display
-            // VemInteractable vemInteractable = vemDisplay.GetComponent<VemInteractable>();
-            // if (hit.transform.gameObject==vemDisplay){
-            //     vemInteractable.Hover(true);
-            //     if (isRightEye){
-            //         vemInteractable.SetLeftHit(hit.point);
-            //     }else{
-            //         vemInteractable.SetRightHit(hit.point);
-            //     }
-            //     return;
-            // }else{
-            //     vemInteractable.Hover(false);
-            // }
-            // keep cache of eye interactables
             if (!interactables.TryGetValue(hit.transform.gameObject.GetHashCode(), out EyeInteractable eyeInteractable))
             {
                 eyeInteractable = hit.transform.GetComponent<EyeInteractable>();
@@ -150,6 +139,7 @@ public class EyeTrackingRay : MonoBehaviour
             eyeInteractable.Hover(true);
 
             lastEyeInteractable = eyeInteractable;
+            }
         }else{
             UnsetCursor();
         }
