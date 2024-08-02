@@ -28,6 +28,7 @@ public class Techniquecontroller : MonoBehaviour
     void Update()
     {
         int technique = PlayerPrefs.GetInt("technique");
+        technique = 3;
         switch (technique)
         {
             case 0:
@@ -41,6 +42,8 @@ public class Techniquecontroller : MonoBehaviour
                 HeadRange.SetActive(true);
                 LeftEyeInteractor.SetActive(true);
                 RightEyeInteractor.SetActive(true);
+                break;
+            case 3:
                 break;
             default:
                 HeadInteractor.SetActive(true);
