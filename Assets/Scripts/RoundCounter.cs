@@ -8,7 +8,7 @@ public class RoundCounter : MonoBehaviour
     [SerializeField]
     Text roundDisplay;
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
         roundDisplay.text = "Round " + RoundController.count;
     }

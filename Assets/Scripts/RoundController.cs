@@ -9,6 +9,8 @@ public class RoundController : MonoBehaviour
     private GameObject[] cubes;
     [SerializeField]
     private FirebaseDbManager firebaseDbManager;
+    [SerializeField]
+    private GameObject canvas;
     private static int prevTarget = -1;
     public GameObject targetCube;
     public int totalAttemptsMade;
@@ -19,11 +21,15 @@ public class RoundController : MonoBehaviour
     public static int count;
     public static int totalTrialsCount = 10;
     public static List<Record> records = new List<Record>();
-    void Start()
-    {
+
+    public void StartNewRound(){
         targetCube = cubes[GetRandomInt()];
         totalAttemptsMade = 0;
         startTime = DateTime.Now;
+        canvas.SetActive(false);
+        foreach (GameObject cube in cubes){
+            cube.GetComponent<HandRayInteractable>().SetObjectIdleMaterial();
+        }
     }
 
     private int GetRandomInt(){
@@ -40,6 +46,9 @@ public class RoundController : MonoBehaviour
     {
         Record record = new Record(totalAttemptsMade, startTime, endTime, lastHoverTime);
         records.Add(record);
+        // reset target cube
+        targetCube = null;
+        canvas.SetActive(true);
         // if all rounds are done, go back to start menu
         if (count == totalTrialsCount)
         {
@@ -55,7 +64,7 @@ public class RoundController : MonoBehaviour
         {
             count += 1;
             PlayerPrefs.SetString("roundCount", count.ToString());
-            SceneManager.LoadScene("RoundStart");
+            // SceneManager.LoadScene("RoundStart");
         }
     }
 }
