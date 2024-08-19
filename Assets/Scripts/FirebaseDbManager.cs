@@ -34,7 +34,7 @@ public class FirebaseDbManager : MonoBehaviour
         OptionsController.speedMap.TryGetValue(PlayerPrefs.GetInt("speed"), out float speed);
         OptionsController.sizeMap.TryGetValue(PlayerPrefs.GetInt("size"), out float size);
         OptionsController.selectionMap.TryGetValue(PlayerPrefs.GetInt("selection"), out string selection);
-        OptionsController.vemMap.TryGetValue(PlayerPrefs.GetInt("selection"), out string vemType);
+        OptionsController.vemMap.TryGetValue(PlayerPrefs.GetInt("vemType"), out string vemType);
         string uid = PlayerPrefs.GetInt("uid").ToString();
         DatabaseReference userRecord = mDatabase.Child(uid);
         string comboKey = userRecord.Push().Key;

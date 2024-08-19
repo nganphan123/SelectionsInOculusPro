@@ -15,19 +15,23 @@ public class OptionsController : MonoBehaviour
     public static Dictionary<int, string> techniqueMap = new Dictionary<int, string>{
         {0, "head"},
         {1, "eye"},
-        {2, "head range and eye gaze"}
+        {2, "head range and eye gaze"},
+        {3, "hand"}
     };
     public static Dictionary<int, string> selectionMap = new Dictionary<int, string>{
         {0, "hand pinching"},
         {1, "right eye blinking"},
+        {2, "right hand pinching"},
     };
     public static Dictionary<int, float> speedMap = new Dictionary<int, float>{
         {0, 2f},
-        {1, 5f},
+        {1, 4f},
+        {2, 6f},
     };
     public static Dictionary<int, float> sizeMap = new Dictionary<int, float>{
         {0, 0.1f},
         {1, 0.3f},
+        {2, 0.5f},
     };
 
     public static Dictionary<int, string> vemMap = new Dictionary<int, string>{

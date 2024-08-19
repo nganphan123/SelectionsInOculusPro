@@ -4037,6 +4037,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Head range + eye
       m_Image: {fileID: 0}
+    - m_Text: Hand
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -6539,6 +6541,8 @@ MonoBehaviour:
     - m_Text: Left Hand Pinching
       m_Image: {fileID: 0}
     - m_Text: Right Eye Blinking
+      m_Image: {fileID: 0}
+    - m_Text: Right Hand Pinching
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -15512,18 +15516,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: RoundStart
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11500000, guid: b2378fff83fda054da9ea5dfadb6e68c, type: 3}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
