@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Hand tracking/StartMenu.unity
+    guid: 04c50290c6d249b4c89763033d54295d
+  - enabled: 0
     path: Assets/Scenes/StartMenu.unity
     guid: acb3b5b7964a9514bb948ef40d975160
   - enabled: 0
