@@ -1,11 +1,14 @@
 # Eye tracking in VR
-_(This project is in progress)_
 
 Honours thesis regarding eye-tracking applications:
 
 1. Desktop-based application with Tobii device
 
 2. AR application on MetaQuest headset
+
+## Demonstration
+
+https://github.com/user-attachments/assets/d0d90ae0-9f1f-4966-8ef5-0d61deaf7c9e
 
 ## Progress
 
