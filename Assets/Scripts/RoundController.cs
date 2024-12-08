@@ -54,6 +54,7 @@ public class RoundController : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("onPractice") != 1)
             {
+                Debug.Log("get here 1");
                 firebaseDbManager.AddCombo(records);
             }
             PlayerPrefs.SetString("roundCount", count.ToString());

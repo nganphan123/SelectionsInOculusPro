@@ -65,12 +65,12 @@ public class FirebaseDbManager : MonoBehaviour
                 [i.ToString()] = roundsEntry
             };
             roundRecord.UpdateChildrenAsync(childUpdates).ContinueWithOnMainThread((task) =>
-        {
-            if (task.Exception != null)
             {
-                Debug.Log($"Firebase Exception in add records: {task.Exception}");
-            }
-        });
+                if (task.Exception != null)
+                {
+                    Debug.Log($"Firebase Exception in add records: {task.Exception}");
+                }
+            });
         }
     }
 

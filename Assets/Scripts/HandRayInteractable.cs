@@ -24,6 +24,11 @@ public class HandRayInteractable:MonoBehaviour{
     void Start(){
         if(meshRenderer == null){
             meshRenderer = GetComponent<MeshRenderer>();
+            int sizeOpt = PlayerPrefs.GetInt("size");
+            float oneDimSize = OptionsController.sizeMap[sizeOpt];
+            Vector3 newSize = new Vector3(oneDimSize, 0.01f, oneDimSize);
+            // change cube size
+            transform.localScale = newSize;
         }
         // currState = State.IDLE;
     }
